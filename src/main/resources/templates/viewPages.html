@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from akademi.dexignlab.com/cakephp/demo/akademi-admin/edit-profile by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Nov 2023 16:56:40 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+ <title>Add Page</title>
+    <link href="assets/images/star.png" type="" rel="icon">
+    <link href="assets/images/star.png" type="" rel="shortcut icon">
+
+<!-- Meta -->
+
+ 		 <link rel="stylesheet" href="@{/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons">
+    <!-- Page level css : Dashboard  -->
+    <link rel="stylesheet" th:href="@{/assets/vendor/wow-master/css/libs/animate.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap-select-country/css/bootstrap-select-country.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendor/datepicker/css/bootstrap-datepicker.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendor/datatables/css/jquery.dataTables.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendor/swiper/css/swiper-bundle.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+</head>
+<style>
+	.masonry { /* Masonry container */
+    -webkit-column-count: 4;
+  -moz-column-count:4;
+  column-count: 4;
+  -webkit-column-gap: 1em;
+  -moz-column-gap: 1em;
+  column-gap: 1em;
+   margin: 1.5em;
+    padding: 0;
+    -moz-column-gap: 1.5em;
+    -webkit-column-gap: 1.5em;
+    column-gap: 1.5em;
+    font-size: .85em;
+}
+.item {
+    display: inline-block;
+   
+    
+    margin: 0 0 1.5em;
+    width: 100%;
+  -webkit-transition:1s ease all;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+      border-radius: 30px;
+    overflow: hidden;
+}
+.item img{max-width:100%;
+
+            transition: 0.5s all ease-in-out;
+}
+
+@media only screen and (max-width: 320px) {
+    .masonry {
+        -moz-column-count: 1;
+        -webkit-column-count: 1;
+        column-count: 1;
+    }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 768px){
+    .masonry {
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        column-count: 2;
+    }
+}
+@media only screen and (min-width: 769px) and (max-width: 1200px){
+    .masonry {
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;
+    }
+}
+@media only screen and (min-width: 1201px) {
+    .masonry {
+        -moz-column-count: 4;
+        -webkit-column-count: 4;
+        column-count: 4;
+    }
+}
+img
+{
+  border-radius: 5px;
+}
+.container {
+  padding: 2rem 0rem;
+}
+
+h4 {
+  margin: 2rem 0rem 1rem;
+}
+
+.table-image {
+  td, th {
+    vertical-align: middle;
+  }
+}
+
+</style>
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+      <div id="preloader">
+    <div class="loader">
+        <div class="dots">
+            <div class="dot mainDot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div><br>
+        <h2>Load Pages...</h2>
+    </div>
+</div> 
+   <!--*******************
+        Preloader end
+    ********************-->
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+	    <div id="main-wrapper" class="  active">
+<div th:replace="~{header::header}">
+	</div>
+             <!--**********************************
+            Sidebar end
+        ***********************************-->
+    
+        <!--**********************************
+            Content body start
+        ***********************************-->
+					<div class="content-body " >
+			<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="mb-0">Views Pages</h5>
+				</div>
+				<div class="card-body">
+					<div class="row">
+					<div class="row">
+						<div class="col-sm-4">
+		     <div class="alert alert-danger alert-dismissible alert-alt fade show" th:if="${session.imageExist}">
+   
+    <span >First Delete All Images</span><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+    </button>
+    <th:block th:text="${@sessionHelper.removeMessageFromGallery()}"></th:block>
+</div>
+     <div class="alert alert-danger alert-dismissible alert-alt fade show" th:if="${session.clientImageExist}">
+   
+    <span >First Delete All Clients Images</span><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+    </button>
+    <th:block th:text="${@sessionHelper.removeMessageFromGallery()}"></th:block>
+</div>
+ <div class="alert alert-danger alert-dismissible alert-alt fade show" th:if="${session.teamImageExist}">
+   
+    <span >First Delete All Team Member</span><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+    </button>
+    <th:block th:text="${@sessionHelper.removeMessageFromGallery()}"></th:block>
+</div>
+ <div class="alert alert-danger alert-dismissible alert-alt fade show" th:if="${session.eventExist}">
+   
+    <span >First Delete All Events</span><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+    </button>
+    <th:block th:text="${@sessionHelper.removeMessageFromGallery()}"></th:block>
+</div>
+
+ <div class="alert alert-danger alert-dismissible alert-alt fade show" th:if="${session.menuExist}">
+   
+    <span >First Delete All Menu's</span><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+    </button>
+    <th:block th:text="${@sessionHelper.removeMessageFromGallery()}"></th:block>
+</div>
+		<div class="nav flex-column nav-pills mb-3">
+			<a href="#v-pills-home" data-bs-toggle="pill" class="nav-link active show" th:if="${session.homeMenuFound}">Home</a>
+
+
+			<a href="#v-pills-about" data-bs-toggle="pill" class="nav-link" th:if="${session.aboutMenuFound}" >About</a>
+			<span th:unless="${session.theme == 'theme3'}">
+			<a href="#v-pills-services" data-bs-toggle="pill" class="nav-link" th:if="${session.serviceMenuFound}"  >Services</a>
+			</span>
+			<a href="#v-pills-contact" data-bs-toggle="pill" class="nav-link" th:if="${session.contactMenuFound}" >Contact Us</a>
+			<a href="#v-pills-gallery" data-bs-toggle="pill" class="nav-link" th:if="${session.galleryMenuFound}" >Gallery</a>
+			
+			
+			
+			<span th:if="${session.theme == 'theme2'}">
+<a href="#v-pills-client" data-bs-toggle="pill" class="nav-link" th:if="${session.clientMenuFound}" >Clients Images</a>
+</span>
+<span th:if="${session.theme == 'theme2'}">
+<a href="#v-pills-team" data-bs-toggle="pill" class="nav-link" th:if="${session.teamMenuFound}" >Team</a>
+</span>
+<span th:if="${session.theme=='theme3'}">
+<a href="#v-pills-bimage" data-bs-toggle="pill" class="nav-link" th:if="${session.backgroundImagesFound}" >Background Images</a>
+		<a href="#v-pills-menu" data-bs-toggle="pill" class="nav-link" th:if="${session.ourMenuMenuFound}" >Our Menu</a>
+		<a href="#v-pills-smenu" data-bs-toggle="pill" class="nav-link" th:if="${session.specialMenuMenuFound}" >Special Dishes</a>
+		<a href="#v-pills-event" data-bs-toggle="pill" class="nav-link" th:if="${session.eventMenuFound}" >Events</a>
+		<a href="#v-pills-table" data-bs-toggle="pill" class="nav-link" th:if="${session.tableMenuFound}" >Book A Table</a>
+		</span>
+		<span th:if="${session.custompage}">
+				<span th:each="e : ${user.getCustomPages()}">
+						<a th:href="'#v-pills-'+${e.getPageName()}" data-bs-toggle="pill" class="nav-link" ><span th:text="${e.getPageName()}"></span></a>
+				</span>
+			
+			</span>
+		</div>
+						
+
+	</div>
+	<div class="col-sm-8" >
+		<div class="tab-content"  th:each="e:${user.getUserMenu()}"  >
+			
+			
+				<div id="v-pills-home" class="tab-pane fade active show" th:if="${session.homeMenuFound}" >
+				<form th:action="@{/updateHomeMenu}" method="post"  th:if="${e.getPageName == 'Home'}" enctype="multipart/form-data">
+				<div class="mb-3" >
+					
+                                <label class="form-label">Page Name</label>
+                                <input type="text" name="pageName" readonly class="form-control" value="Home">
+                            </div>
+				<div class="mb-3">
+                                <label class="form-label">Heading Line</label>
+                                <input type="text"  required name="headingLine" class="form-control" th:value="${e.getMenuHome().getHeadingLine()}" >
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Sub Heading Line</label>
+                                <input type="text"  name="subHeadingLine" required class="form-control" th:value="${e.getMenuHome().getSubHeadingLine()}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Site Title Name</label>
+                                <input type="text" name="siteTitle" class="form-control" required  th:value="${e.getMenuHome().getTitle()}">
+                            </div>
+                           
+                             <div class="mb-3">
+                                <label class="form-label">Youtube Link</label>
+                                <input type="text" name="link" class="form-control" required  th:value="${e.getMenuHome().getLink()}">
+                            </div>
+	                             <div class="mb-3">
+						<label for="formFile" class="form-label">Your Site Logo</label>
+						<input class="form-control" name="logo" type="file" id="formFile" accept="image/jpeg ,image/png" >
+					</div>
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Update</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								
+								<a  th:href="@{removeHomeMenu/{id}(id=${e.getId()})}" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                     </form> 
+			</div>
+			
+			
+			<div id="v-pills-about" class="tab-pane fade"  th:if="${e.getPageName == 'About'}" >
+				<form th:action="@{/updateAboutMenu}" method="post"  >
+				<div class="mb-3">
+                                <label class="form-label">Page Name</label>
+                                <input type="text" name="pageName" readonly class="form-control" value="About">
+                            </div>
+							<div class="mb-3">
+                                <label class="form-label">About Your Business</label>
+                                <input type="text" placeholder="About Your Business"  th:value="${e.getAbout().getAboutBusiness()}"  required name="aboutBusiness" class="form-control" >
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Enter Your Mobile Number</label>
+                                <input type="text"  placeholder="Mobile Number"  required name="mobile" class="form-control" th:value="${e.getAbout().getMobile()}" >
+                            </div>
+                      		<div class="mb-3">
+                                <label class="form-label">Enter Your E-Mail</label>
+                                <input type="email"  placeholder="Email "  required name="email" class="form-control" th:value="${e.getAbout().getEmail()}">
+                            </div>
+                            
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Update</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								
+								<a  th:href="@{removeAboutMenu/{id}(id=${e.getId()})}" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                     </form> 
+			</div>
+		
+			
+				<div id="v-pills-table" class="tab-pane fade" th:if="${e.getPageName == 'BookTable'}">
+				<form th:action="@{/addTableMenu}" method="post" >
+				<div class="mb-3">
+                                <label class="form-label">Page Name</label>
+                                <input type="text" name="pageName" readonly class="form-control" value="BookTable">
+                            </div>
+							
+                      		
+                            
+						<div class="mb-3">
+								
+								
+							<a  th:href="@{removeTableMenu/{id}(id=${e.getId()})}" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                     </form> 
+			</div>
+			
+		
+			<div id="v-pills-services" class="tab-pane fade" th:if="${e.getPageName == 'Services'}" >
+				<form th:action="@{/updateServiceMenu}" method="post"   >
+				<div class="mb-3">
+                                <label class="form-label">Page Name</label>
+                                <input type="text" name="pageName" readonly class="form-control" value="Services">
+                            </div>
+                             <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <input type="text" placeholder="Write About Your Srvices"   name="serviceDescription" class="form-control"  th:value="${e.getMenuServices().getServiceDescription()}">
+                            </div>
+							<div class="mb-3">
+                                <label class="form-label">Serviec 1</label>
+                                <input type="text" placeholder="Write About Your Srvices"   name="service1" class="form-control" th:value="${e.getMenuServices().getService1()}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Service 2</label>
+                                <input type="text"  placeholder="Write About Your Srvices"   name="service2" class="form-control" th:value="${e.getMenuServices().getService2()}" >
+                            </div>
+                      		<div class="mb-3">
+                                <label class="form-label">Service 3</label>
+                                <input type="text"  placeholder="Write About Your Srvices"   name="service3" class="form-control" th:value="${e.getMenuServices().getService3()}" >
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Service 4</label>
+                                <input type="text"  placeholder="Write About Your Srvices"   name="service4" class="form-control" th:value="${e.getMenuServices().getService4()}">
+                            </div>
+                            
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Update</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								
+							<a  th:href="@{removeServiceMenu/{id}(id=${e.getId()})}" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                     </form> 
+			</div>
+	
+		
+				<div id="v-pills-contact" class="tab-pane fade" th:if="${e.getPageName == 'Contact'}">
+				<form  th:action="@{/updateContactMenu}" method="post" >
+				<div class="mb-3">
+					          <label class="form-label">Page Name</label>
+                                <input type="text" name="pageName" readonly class="form-control" value="Contact">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Enter Google Map Embeded Link</label>
+                                <input type="text" placeholder="Google Map Link"   name="mapLink" class="form-control" th:value="${e.getMenuContact().getMapLink()}" >
+                            </div>
+							<div class="mb-3">
+                                <label class="form-label">Address</label>
+                                <input type="text"   name="address" class="form-control"  th:value="${e.getMenuContact().getAddress()}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="text"    name="email" class="form-control" th:value="${e.getMenuContact().getEmail()}">
+                            </div>
+                      		<div class="mb-3">
+                                <label class="form-label">Mobile</label>
+                                <input type="text"    name="mobile" class="form-control"  th:value="${e.getMenuContact().getMobile()}">
+                            </div>
+                           
+                            
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Update</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a  th:href="@{removeContactMenu/{id}(id=${e.getId()})}" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                            
+                     </form> 
+                     </div>
+                   <span th:if="${session.custompage}">
+					   <span th:each="e : ${user.getCustomPages()}">
+                    <div th:id="'v-pills-'+${e.getPageName()}" class="tab-pane fade" >
+				<form th:action="@{/updateCustomPage}" method="post" >
+				<div class="mb-3">
+                                <label class="form-label">Page Name</label>
+                                <input type="text" name="pageName"  class="form-control" th:value="${e.getPageName()}" placeholder="Enter Page Name">
+                            </div>
+							<div class="mb-3">
+                          <textarea class="form-control" rows="25" id="comment" name="code" placeholder="Write HTML, CSS & JS Code for your custom page" th:text="${e.getCode()}"></textarea>
+                        </div>
+                            
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Update</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a  th:href="@{removeCustomMenu/{id}(id=${e.getId()})}" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                     </form> 
+			</div> 
+			</span>
+			</span>
+                    
+			<div id="v-pills-team" class="tab-pane fade" th:if="${e.getPageName() == 'Team'}">
+				<form th:action="@{/addTeam}" method="post" enctype="multipart/form-data">
+				<div class="mb-3">
+                            <div class="mb-3">
+                                <label class="form-label">Page Name</label>
+                                <input type="text" name="pageName" readonly class="form-control" value="Team">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Team Member Name</label>
+                                <input type="text" name="name"  class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Team Member Designation</label>
+                                <input type="text" name="post"  class="form-control">
+                            </div>
+                             <div class="mb-3">
+						<label for="formFile" class="form-label">Team Member Photo</label>
+						<input class="form-control" type="file" name="img" required  id="formFile"  accept="image/png, image/jpeg">
+					</div>
+                   
+                            
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Add</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a  th:href="@{removeTeamMenu/{id}(id=${e.getId()})}" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                     </form> 
+                       <section  th:unless="${session.noMenuFound}">
+<div th:each="e:${user.getUserMenu()}">
+	<div th:if="${e.getPageName()=='Team'}">
+      <div class="container" >
+
+      </div>
+      <div class="masonry" >
+
+  <div class="item" th:each="b:${user.getMenuTeams()}">
+	 <span th:with="path = ${b.getMemberImage()}">
+			<img  th:src="'/themeImages/'+${path}" >
+			<center><h3 th:text="${b.getMemberName()}"></h3></center>
+			<center><h4 th:text="${b.getPost()}"></h4></center>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{removeTeamImage/{id}(id=${b.getMemberImage()})}" style="color:teal;margin:10px;width: 90px;height: 30px;padding-bottom: 10px;" class="btn">Delete</a>
+			</span>
+			
+  </div>
+  
+</div>
+</div>
+</div>
+     </section>
+			</div>
+			
+			
+			<div id="v-pills-menu" class="tab-pane fade" th:if="${e.getPageName() == 'Menu'}">
+				<form th:action="@{/addOurmenu}" method="post" >
+				<div class="mb-3">
+                                <label class="form-label">Page Name</label>
+                                <input type="text" name="pageName" readonly class="form-control" value="Menu">
+                            </div>
+							<div class="mb-3">
+                                <label class="form-label">Menu's Name</label>
+                                <input type="text" placeholder="Enter Menus Name"  required name="menuName" class="form-control" >
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Rate</label>
+                                <input type="number"  placeholder="Enter Rate"  required name="rate" class="form-control" >
+                            </div>
+                      		
+                            
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Add</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a  th:href="@{removeMenuMenu/{id}(id=${e.getId()})}" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                     </form> 
+                     
+                     <section th:if="${session.ourMenuMenuFound}">
+						 <div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Menu's Name</th>
+            <th scope="col">Rate</th>
+          
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="e : ${user.getRestoMenus()}">
+            <td th:text="${e.getId()}"></td>
+            <td th:text="${e.getDishesName()}"></td>
+            <td th:text="${e.getRate()}"></td>
+          <td>
+            <a th:href="@{/removeRestoMenu/{id} (id=${e.getId()})}" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+            </td>
+          </tr>
+          
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+					 </section>
+			</div>
+			
+			
+				<div id="v-pills-smenu" class="tab-pane fade" th:if="${session.specialMenuMenuFound}">
+				<form th:action="@{/addSmenu}" method="post" enctype="multipart/form-data" >
+				<div class="mb-3">
+                               
+                                <input type="text" name="pageName" readonly class="form-control" hidden value="Senu">
+                            </div>
+							<div class="mb-3">
+                                <label class="form-label">Dishe Name</label>
+                                <input type="text" placeholder="Enter Dishes Name"  required name="menuName" class="form-control" >
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <input type="text"  placeholder="Enter Description"  required name="desci" class="form-control" >
+                            </div>
+                      		
+                            <div class="mb-3">
+						<label for="formFile" class="form-label">Image</label>
+						<input class="form-control" type="file" name="image" required id="formFile" accept="image/png, image/jpeg">
+					</div>
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Add</button>
+                                </div>
+                                
+                     </form> 
+                     
+            <section  th:if="${session.specialMenuMenuFound}">
+
+	
+      <div class="container" >
+
+     
+      <div class="masonry" >
+
+  <div class="item" th:each="e: ${user.getSpecialDishes()}">
+	 <span th:with="path = ${e.getImage()}">
+			<img  th:src="'/themeImages/'+${path}" >
+			<center><h3 th:text="${e.getDisheName()}"></h3></center>
+			<center><h4 th:text="${e.getDescription}"></h4></center>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{removeSpecialImage/{id}(id=${e.getImage()})}" style="color:teal;margin:10px;width: 90px;height: 30px;padding-bottom: 10px;" class="btn">Delete</a>
+			</span>
+			
+  </div>
+  
+</div>
+</div>
+
+     </section> 
+         
+                     
+			</div>
+			
+			
+			
+			<div id="v-pills-bimage" class="tab-pane fade" th:if="${session.backgroundImagesFound}">
+				<form th:action="@{/addBimage}" method="post" enctype="multipart/form-data" >
+				<div class="mb-3">
+                               
+                                <input type="text" name="pageName" readonly class="form-control" hidden value="bimage">
+                            </div>
+							<div class="mb-3">
+                                <label class="form-label">Heading</label>
+                                <input type="text" placeholder="Enter Heading"  required name="heading" class="form-control" >
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Sub Heading</label>
+                                <input type="text"  placeholder="Enter Sub Heading"  required name="subHeading" class="form-control" >
+                            </div>
+                      		
+                            <div class="mb-3">
+						<label for="formFile" class="form-label">Background Image</label>
+						<input class="form-control" type="file" name="image" required id="formFile" accept="image/png, image/jpeg">
+					</div>
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Add</button>
+                                </div>
+                     </form>
+                     
+                     
+                                            <section  th:if="${session.backgroundImagesFound}">
+
+	
+      <div class="container" >
+
+     
+      <div class="masonry" >
+
+  <div class="item" th:each="e: ${user.getBackGroundImages()}">
+	 <span th:with="path = ${e.getImage()}">
+			<img  th:src="'/themeImages/'+${path}" >
+			<center><h3 th:text="${e.getHeading()}"></h3></center>
+			<center><h4 th:text="${e.getSubHeading()}"></h4></center>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{removeBackImage/{id}(id=${e.getId()})}" style="color:teal;margin:10px;width: 90px;height: 30px;padding-bottom: 10px;" class="btn">Delete</a>
+			</span>
+			
+  </div>
+  
+</div>
+</div>
+     </section> 
+			</div>
+			
+		<div id="v-pills-event" class="tab-pane fade" th:if="${e.getPageName() == 'Event'}">
+				<form th:action="@{/addEvent}" method="post" enctype="multipart/form-data"  >
+				<div class="mb-3">
+                               <label class="form-label">Page Name</label>
+                                <input type="text" name="pageName" readonly class="form-control" value="Event">
+                            </div>
+							<div class="mb-3">
+                                <label class="form-label">Event Title</label>
+                                <input type="text" placeholder="Enter event Title"  required name="eventTitle" class="form-control" >
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                           <textarea class="form-control" rows="5" id="comment" name="desci" placeholder="Write here"></textarea>
+                            </div>
+                      		 <div class="mb-3">
+                                <label class="form-label">Rate</label>
+                                <input type="number"  placeholder="Enter Rate"  required name="rate" class="form-control" >
+                            </div>
+                      		
+                      		
+                            <div class="mb-3">
+						<label for="formFile" class="form-label">Image</label>
+						<input class="form-control" type="file" name="image" required id="formFile" accept="image/png, image/jpeg">
+					</div>
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Add</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a  th:href="@{removeEventMenu/{id}(id=${e.getId()})}" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                     </form> 
+                      <section th:if="${session.eventMenuFound}">
+						 <div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Event_Title</th>
+            <th scope="col">Event_Description</th>
+            <th scope="col">Rate</th>
+            <th scope="col">Image</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="e: ${user.getEvents()}">
+            <td th:text="${e.getId()}"></td>
+            <td th:text="${e.getEventTitle()}"></td>
+            <td th:text="${e.getEventDescription()}"></td>
+            <td th:text="${e.getRate()}"></td>
+            <td><img style="width: 80px; height: 80px;" th:src="'/themeImages/'+${e.getImage()}" ></td>
+				
+			<td>
+            <a th:href="@{/removeEvents/{id} (id=${e.getImage()})}" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+            </td>
+          </tr>
+          
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+					 </section>
+		
+			</div>
+			
+			
+                     	<div id="v-pills-client" class="tab-pane fade" th:if="${e.getPageName() == 'Client'}">
+				<form th:action="@{/addClient}" method="post" enctype="multipart/form-data">
+				<div class="mb-3">
+                            <div class="mb-3">
+					          <label class="form-label">Page Name</label>
+                                <input type="text" name="pageName" readonly class="form-control" value="Client">
+                            </div>
+                             <div class="mb-3">
+						<label for="formFile" class="form-label">Upload Image</label>
+						<input class="form-control" type="file" name="clientimg" required  id="formFile" multiple accept="image/png, image/jpeg">
+					</div>
+                   
+                            
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Add</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a  th:href="@{removeClientMenu/{id}(id=${e.getId()})}" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                     </form> 
+                                              <section  th:unless="${session.noMenuFound}">
+<div th:each="e:${user.getUserMenu()}">
+	<div th:if="${e.getPageName()=='Client'}">
+      <div class="container" >
+
+      </div>
+      <div class="masonry" >
+
+  <div class="item" th:each="b:${user.getMenuClients()}">
+	 <span th:with="path = ${b.getClientImage()}">
+			<img  th:src="'/themeImages/'+${path}" >
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{removeClientImage/{id}(id=${b.getClientImage()})}" style="color:teal;margin:10px;width: 90px;height: 30px;padding-bottom: 10px;" class="btn">Delete</a>
+			</span>
+			
+  </div>
+  
+</div>
+</div>
+</div>
+     </section>
+			</div>
+                     
+                     
+                     <div id="v-pills-gallery" class="tab-pane fade" th:if="${e.getPageName == 'Gallery'}">
+				<form th:action="@{/addImage}" method="post" enctype="multipart/form-data" >
+									<div class="mb-3">
+                                <label class="form-label">Page Name</label>
+                                <input type="text" name="pageName" readonly class="form-control" value="Gallery">
+                            </div>
+				       <div class="mb-3">
+						<label for="formFile" class="form-label">Upload Image</label>
+						<input class="form-control" type="file" name="img" required  id="formFile" multiple accept="image/png, image/jpeg">
+					</div>
+                   
+						<div class="mb-3">
+								<button type="submit" class="btn btn-primary mb-2">Add</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a  th:href="@{removeGalleryMenu/{id}(id=${e.getId()})}" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                     </form> 
+                         <section id="gallery" th:unless="${session.noMenuFound}">
+<div th:each="e:${user.getUserMenu()}">
+	<div th:if="${e.getPageName()=='Gallery'}">
+      <div class="container" >
+
+      </div>
+      <div class="masonry" >
+
+  <div class="item" th:each="b:${user.getGallery()}">
+	 <span th:with="path = ${b.getImg()}">
+			<img  th:src="'/themeImages/'+${path}" >
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{removeImage/{id}(id=${b.getImg()})}" style="color:teal;margin:10px;width: 90px;height: 30px;padding-bottom: 10px;" class="btn">Delete</a>
+			</span>
+			
+  </div>
+  
+</div>
+</div>
+</div>
+     </section>
+                     
+			</div>
+			</div>
+	
+	</div>
+</div>
+					 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+
+		</div>    
+    			
+        <!--**********************************
+            Footer start
+        ***********************************-->
+
+			<div th:replace="~{footer::footer}"></div>
+	       <!--**********************************
+            Footer end
+        ***********************************-->
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+	<script>
+            const BASE_URL = 'https://akademi.dexignlab.com/cakephp/demo';
+        </script>
+        <script th:src="@{/assets/vendor/global/global.min.js}"></script>
+        <script th:src="@{/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js}"></script>
+        <script th:src="@{/assets/vendor/chart.js/Chart.bundle.min.js}"></script>
+        <script th:src="@{/assets/vendor/apexchart/apexchart.js}"></script>
+        <script th:src="@{/assets/vendor/peity/jquery.peity.min.js}"></script>
+        <script th:src="@{/assets/vendor/swiper/js/swiper-bundle.min.js}"></script>
+        <script th:src="@{/assets/vendor/datatables/js/jquery.dataTables.min.js}"></script>
+        <script th:src="@{/assets/js/plugins-init/datatables.init.js}"></script>
+        <script th:src="@{/assets/js/dashboard/dashboard-1.js}"></script>
+        <script th:src="@{/assets/vendor/wow-master/dist/wow.min.js}"></script>
+        <script th:src="@{/assets/vendor/bootstrap-datetimepicker/js/moment.js}"></script>
+        <script th:src="@{/assets/vendor/datepicker/js/bootstrap-datepicker.min.js}"></script>
+        <script th:src="@{/assets/vendor/bootstrap-select-country/js/bootstrap-select-country.min.js}"></script>
+        <!-- Page level Js : Dashboard  -->
+        <script th:src="@{/assets/js/custom.min.js}"></script>
+        <script th:src="@{/assets/js/dlabnav-init.js}"></script>
+        <script th:src="@{/assets/js/demo.js}"></script>
+        <script th:src="@{/assets/js/styleSwitcher.js}"></script>
+
+ 
+</body>
+
+<!-- Mirrored from akademi.dexignlab.com/cakephp/demo/akademi-admin/edit-profile by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Nov 2023 16:56:40 GMT -->
+</html>

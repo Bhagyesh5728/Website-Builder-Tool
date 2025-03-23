@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>BM Tools- Website Builder Tool</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="theme2/img/favicon.png" rel="icon">
+  <link href="theme2/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/theme2/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/theme2/vendor/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/theme2/vendor/glightbox.min.css}" rel="stylesheet">
+  <link th:href="@{/theme2/vendor/swiper-bundle.min.css}" rel="stylesheet">
+  <link th:href="@{/theme2/vendor/aos.css}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link th:href="@{/theme2/css/main2.css}" rel="stylesheet">
+
+
+</head>
+
+<body class="index-page" data-bs-spy="scroll" data-bs-target="#navmenu">
+ <div class="alert alert-success alert-dismissible alert-alt fade show" th:if="${session.contact}">
+   
+   	Message Send!!
+    <th:block th:text="${@sessionHelper.removeMessageFromLoginFrom()}"></th:block>
+</div>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0" th:if="${session.noMenuFound}">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1 >Append</h1>
+        <span>.</span>
+      </a>
+
+   <a href="#" class="logo d-flex align-items-center me-auto me-xl-0" th:unless="${session.noMenuFound}">
+      <span th:each="e : ${user.getUserMenu()}">
+		  <span th:if="${e.getPageName() == 'Home'}">
+        <h1 th:text="${e.getMenuHome().getTitle()}" style="display: inline-block;"></h1>
+        <span>.</span>
+        <span th:with="path = ${e.getMenuHome().getLogo()}">
+      <img  th:src="'/themeImages/'+${path}" ></span>
+      </span>
+      </span>
+      </a>
+      <!-- Nav Menu -->
+      <nav id="navmenu" class="navmenu"  th:if="${session.noMenuFound}">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#team">Team</a></li>
+         
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav><!-- End Nav Menu -->
+
+           <!-- Nav Menu -->
+      <nav id="navmenu" class="navmenu"  th:unless="${session.noMenuFound}">
+        <ul>
+          <div th:each="e: ${user.getUserMenu()} ">
+          <li th:if="${e.getPageName() == 'Home'}"><a href="#hero" class="active">Home</a></li>
+          <li th:if="${e.getPageName() == 'About'}"><a href="#about">About</a></li>
+          <li th:if="${e.getPageName() == 'Services'}"><a href="#services">Services</a></li>
+          <li th:if="${e.getPageName() == 'Gallery'}"><a href="#portfolio">Portfolio</a></li>
+        <li th:if="${e.getPageName() == 'Team'}"><a href="#team">Team</a></li>
+         
+          <li th:if="${e.getPageName() == 'Contact'}"><a href="#contact">Contact</a></li>
+
+        </div>
+         <span th:if="${session.custompage}">
+			  
+			  <span th:each="e: ${user.getCustomPages()}">
+				 <li class="dropdown"  ><a class="nav-link scrollto" th:href="'#'+${e.getPageName()}"><span th:text="${e.getPageName()}"></span></a></li>	  
+			  </span>
+		  </span>
+        
+        </ul>
+
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav><!-- End Nav Menu -->
+
+      <a class="btn-getstarted" href="#hero">Get Started</a>
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- Hero Section - Home Page -->
+    <section id="hero" class="hero" th:if="${session.noMenuFound}">
+
+      <img src="theme2/img/bm.jpg" alt="" data-aos="fade-in">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10">
+            <h2 data-aos="fade-up" data-aos-delay="100">Welcome to Our Website</h2>
+            <p data-aos="fade-up" data-aos-delay="200">We are team of talented designers making websites with Bootstrap</p>
+          </div>
+      
+        </div>
+      </div>
+
+    </section><!-- End Hero Section -->
+
+        <section id="hero" class="hero" th:unless="${session.noMenuFound}">
+			<span th:each="e : ${user.getUserMenu()}">
+				<span th:if="${e.getPageName() == 'Home'}">
+<div th:if="${session.homeMenuFound}">
+      <img src="theme2/img/bm.jpg" alt="" data-aos="fade-in">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10">
+            <h2 data-aos="fade-up" data-aos-delay="100" th:text="${e.getMenuHome().getHeadingLine()}" ></h2>
+            <p data-aos="fade-up" data-aos-delay="200" th:text="${e.getMenuHome().getSubHeadingLine()}"></p>
+          </div>
+      
+        </div>
+      </div>
+</div></span></span>
+    </section><!-- End Hero Section --> 
+
+    <!-- Clients Section - Home Page -->
+    <section id="clients" class="clients" th:if="${session.noMenuFound}">
+
+      <div class="container-fluid" data-aos="fade-up">
+
+        <div class="row gy-4">
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="theme2/img/client-1.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="theme2/img/client-2.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="theme2/img/client-3.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="theme2/img/client-4.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="theme2/img/client-5.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="theme2/img/client-6.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+          
+          
+
+
+        </div>
+
+      </div>
+
+    </section><!-- End Clients Section -->
+    
+
+	<section id="clients" class="clients" th:unless="${session.noMenuFound}">
+	<span th:each="p : ${user.getUserMenu()}">
+		<span >
+      <div class="container-fluid" data-aos="fade-up"th:if="${p.getPageName() == 'Client'}" >
+
+        <div class="row gy-4" >
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo" th:each="e: ${user.getMenuClients()}">
+            <img th:src="'/themeImages/'+${e.getClientImage()}" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+        </div>
+
+      </div>
+      </span>
+</span>
+    </section><!-- End Clients Section -->
+
+
+
+    <!-- About Section - Home Page -->
+    <section id="about" class="about" th:if="${session.noMenuFound}">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row align-items-xl-center gy-5">
+
+          <div class="content">
+            <center><p>About Us</p></center><br>
+        
+            <h5>Ipsa sint sit. Quis ducimus tempore dolores impedit et dolor cumque alias maxime. Enim reiciendis minus et rerum hic non. Dicta quas cum quia maiores iure. Quidem nulla qui assumenda incidunt voluptatem tempora deleniti soluta.</h5>
+      
+          </div>
+
+
+        </div>
+      </div>
+
+    </section><!-- End About Section -->
+    
+      <!-- About Section - Home Page -->
+    <section id="about" class="about" th:unless="${session.noMenuFound}">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100" th:each="e: ${user.getUserMenu()}">
+        <div class="row align-items-xl-center gy-5" th:if="${e.getPageName()=='About'}">
+
+          <div class="content">
+            <center><p style="color: orangered;">About Us</p></center><br>
+        
+            <center><h5 th:text="${e.getAbout().getAboutBusiness()}"></h5>
+            <span th:text="${e.getAbout().getMobile()}"></span>&nbsp;&nbsp;&nbsp;<b>|</b>&nbsp;&nbsp;&nbsp;<span th:text="${e.getAbout().getEmail()}">  </span></center>
+      
+          </div>
+
+
+        </div>
+      </div>
+
+    </section><!-- End About Section -->
+
+    
+    <!-- Services Section - Home Page -->
+    <section id="services" class="services" th:if="${session.noMenuFound}">
+
+      <!--  Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Services</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class=""></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link">Lorem Ipsum</a></h4>
+               
+              </div>
+            </div>
+          </div>
+          <!-- End Service Item -->
+
+           <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class=""></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link">Lorem Ipsum</a></h4>
+               
+              </div>
+            </div>
+          </div>
+          <!-- End Service Item -->
+
+           <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class=""></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link">Lorem Ipsum</a></h4>
+               
+              </div>
+            </div>
+          </div>
+          <!-- End Service Item -->
+
+           <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class=""></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link">Lorem Ipsum</a></h4>
+               
+              </div>
+            </div>
+          </div>
+          <!-- End Service Item -->
+
+          
+        </div>
+
+      </div>
+
+    </section><!-- End Services Section -->
+
+
+
+    <!-- Services Section - Home Page -->
+    <section id="services" class="services" th:unless="${session.noMenuFound}">
+<span th:each="e: ${user.getUserMenu()}">
+	<span th:if="${e.getPageName() == 'Services'}">
+      <!--  Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Services</h2>
+        <p th:text="${e.getMenuServices().getServiceDescription()}"></p>
+      </div><!-- End Section Title -->
+
+      <div class="container" >
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class=""></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link" th:text="${e.getMenuServices().getService1()}"></a></h4>
+               
+              </div>
+            </div>
+          </div>
+          <!-- End Service Item -->  
+          
+            <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class=""></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link" th:text="${e.getMenuServices().getService2()}"></a></h4>
+               
+              </div>
+            </div>
+          </div>
+          <!-- End Service Item --> 
+          
+          
+            <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class=""></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link" th:text="${e.getMenuServices().getService3()}"></a></h4>
+               
+              </div>
+            </div>
+          </div>
+          <!-- End Service Item --> 
+          
+          
+          
+            <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class=""></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link" th:text="${e.getMenuServices().getService4()}"></a></h4>
+               
+              </div>
+            </div>
+          </div>
+          <!-- End Service Item --> 
+        </div>
+
+      </div> </span>
+</span>
+    </section><!-- End Services Section -->
+
+ 
+    <!-- Portfolio Section - Home Page -->
+    <section id="portfolio" class="portfolio" th:if="${session.noMenuFound}">
+
+      <!--  Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Portfolio</h2>
+       
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+    
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="theme2/img/masonry-portfolio-1.jpg" class="img-fluid" alt="">
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="theme2/img/masonry-portfolio-1.jpg" class="img-fluid" alt="">
+            </div><!-- End Portfolio Item -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="theme2/img/masonry-portfolio-1.jpg" class="img-fluid" alt="">
+            </div><!-- End Portfolio Item -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="theme2/img/masonry-portfolio-1.jpg" class="img-fluid" alt="">
+            </div><!-- End Portfolio Item -->
+
+           
+          </div><!-- End Portfolio Container -->
+
+        </div>
+
+      </div>
+
+    </section><!-- End Portfolio Section -->
+
+
+	 <!-- Portfolio Section - Home Page -->
+    <section id="portfolio" class="portfolio" th:unless="${session.noMenuFound}">
+
+      <!--  Section Title -->
+   
+
+      <div class="container" th:each="e:${user.getUserMenu()}">
+		  
+
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order" th:if="${e.getPageName() == 'Gallery'}">
+
+       <div class="container section-title" data-aos="fade-up" >
+        <h2>Portfolio</h2>
+       
+      </div><!-- End Section Title -->
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200" >
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app" th:each="b:${user.getGallery()}">
+              <img th:src="'/themeImages/'+${b.getImg()}" class="img-fluid" alt="">
+            </div><!-- End Portfolio Item -->
+
+           
+
+           
+          </div><!-- End Portfolio Container -->
+
+        </div>
+
+      </div>
+
+    </section><!-- End Portfolio Section -->
+
+
+<span th:if="${session.custompage}">
+		 <span th:each="e: ${user.getCustomPages()}">
+         <section th:id="${e.getPageName()}" >
+
+	
+      <div class="container" >
+
+        <div class="section-header">
+         <center> <h2 th:text="${e.getPageName()}" style="font-weight: 500;"></h2>
+         <div> <div th:utext="${e.getCode()}"></div></div></center>
+        </div>
+
+      </div>
+   
+
+
+     </section>
+</span>
+	 </span>
+
+
+    <!-- Team Section - Home Page -->
+    <section id="team" class="team" th:if="${session.noMenuFound}">
+
+      <!--  Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Team</h2>
+       
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-5">
+
+          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
+            <div class="member-img">
+              <img src="theme2/img/team-1.jpg" class="img-fluid" alt="">
+           
+            </div>
+            <div class="member-info text-center">
+              <h4>Walter White</h4>
+              <span>Chief Executive Officer</span>
+              
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="200">
+            <div class="member-img">
+              <img src="theme2/img/team-2.jpg" class="img-fluid" alt="">
+              
+            </div>
+            <div class="member-info text-center">
+              <h4>Sarah Jhonson</h4>
+              <span>Product Manager</span>
+              
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="300">
+            <div class="member-img">
+              <img src="theme2/img/team-3.jpg" class="img-fluid" alt="">
+              
+            </div>
+            <div class="member-info text-center">
+              <h4>William Anderson</h4>
+              <span>CTO</span>
+            
+            </div>
+          </div><!-- End Team Member -->
+          
+          
+
+
+        </div>
+
+      </div>
+
+    </section><!-- End Team Section -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- Team Section - Home Page -->
+    <section id="team" class="team" th:unless="${session.noMenuFound}">
+
+      <!--  Section Title -->
+      <span th:each="e:${user.getUserMenu()}" >
+      <div class="container section-title" data-aos="fade-up" th:if="${e.getPageName() == 'Team'}">
+        <h2>Team</h2>
+       
+      
+
+      <div class="container" >
+
+        <div class="row gy-5" >
+
+          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100" th:each="b: ${user.getMenuTeams()}">
+            <div class="member-img">
+              <img th:src="'/themeImages/'+${b.getMemberImage()}" class="img-fluid" alt="">
+           
+            </div>
+            <div class="member-info text-center">
+              <h4 th:text="${b.getMemberName()}"></h4>
+              <span th:text="${b.getPost()}"></span>
+              
+            </div>
+          </div><!-- End Team Member -->
+
+     
+
+
+        </div>
+
+      </div>
+      </div><!-- End Section Title -->
+</span>
+    </section><!-- End Team Section -->
+    
+    
+    
+   <!-- Contact Section - Home Page -->
+    <section id="contact" class="contact" th:if="${session.noMenuFound}">
+
+      <!--  Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+  
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6">
+
+            <div class="row gy-4">
+              <div class="col-md-6">
+                <div class="info-item" data-aos="fade" data-aos-delay="200">
+                  <i class="bi bi-geo-alt"></i>
+                  <h3>Address</h3>
+                  <p>A108 Adam Street</p>
+                  <p>New York, NY 535022</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item" data-aos="fade" data-aos-delay="300">
+                  <i class="bi bi-telephone"></i>
+                  <h3>Call Us</h3>
+                  <p>+1 5589 55488 55</p>
+                  <p>+1 6678 254445 41</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item" data-aos="fade" data-aos-delay="400">
+                  <i class="bi bi-envelope"></i>
+                  <h3>Email Us</h3>
+                  <p>info@example.com</p>
+                  <p>contact@example.com</p>
+                </div>
+              </div><!-- End Info Item -->
+
+           
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-6">
+            <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                </div>
+
+                <div class="col-md-6 ">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                </div>
+
+                <div class="col-md-12">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                </div>
+
+                <div class="col-md-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                  <button type="submit">Send Message</button>
+                </div>
+
+              </div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+
+    </section><!-- End Contact Section -->
+
+    
+    
+   <!-- Contact Section - Home Page -->
+    <section id="contact" class="contact" th:unless="${session.noMenuFound}">
+<span th:each="e:${user.getUserMenu()}">
+	<span th:if="${e.getPageName() == 'Contact'}">
+      <!--  Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+  
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6">
+
+            <div class="row gy-4">
+              <div class="col-md-6">
+                <div class="info-item" data-aos="fade" data-aos-delay="200">
+                  <i class="bi bi-geo-alt"></i>
+                  <h3>Address</h3>
+                  <p th:text="${e.getMenuContact().getAddress()}"></p>
+                  
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item" data-aos="fade" data-aos-delay="300">
+                  <i class="bi bi-telephone"></i>
+                  <h3>Call Us</h3>
+                  <p th:text="${e.getMenuContact().getMobile()}"></p>
+                
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item" data-aos="fade" data-aos-delay="400">
+                  <i class="bi bi-envelope"></i>
+                  <h3>Email Us</h3>
+                  <p th:text="${e.getMenuContact().getEmail()}"></p>
+                 
+                </div>
+              </div><!-- End Info Item -->
+
+           
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-6">
+            <form th:action="@{/addContacts}" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                </div>
+
+                <div class="col-md-6 ">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                </div>
+
+                <div class="col-md-12">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                </div>
+
+                <div class="col-md-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                </div>
+
+             
+
+                  <button type="submit">Send Message</button>
+                </div>
+
+              </div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+      </span>
+</span>
+    </section><!-- End Contact Section -->
+
+
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer" >
+<span th:if="${session.noMenuFound}">
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span>Append</span>
+
+          </a>
+        <p>Addres Here</p>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+ 
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>A108 Adam Street</p>
+          <p>New York, NY 535022</p>
+          <p>United States</p>
+          <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+          <p><strong>Email:</strong> <span>info@example.com</span></p>
+        </div>
+
+      </div>
+    </div>
+</span>
+
+<span th:if="${session.contactMenuFound}">
+    <div class="container footer-top" >
+      <div class="row gy-4" >
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center" th:each="e:${user.getUserMenu()}">
+			  <span th:if="${e.getPageName() == 'Home'}">            <span th:text="${e.getMenuHome().getTitle()}" >
+				  
+			  </span>
+</span>
+		<span th:if="${e.getPageName() == 'Contact'}">
+			<p th:text="${e.getMenuContact().getAddress()}"></p>
+			<p th:text="${e.getMenuContact().getEmail()}"></p>
+			<p th:text="${e.getMenuContact().getMobile()}"></p>
+		</span>
+          </a>
+       
+          
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul th:each="b : ${user.getUserMenu()}">
+            <li><a href="#" th:text="${b.getPageName()}"></a></li>
+     
+          </ul>
+        </div>
+
+ 
+
+    
+
+      </div>
+    </div>
+</span>
+
+    <div class="container copyright text-center mt-4">
+      <p>&copy; <span>Copyright</span> <strong class="px-1">BM Website Builder Tool</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="#">BM TOOLS</a>
+      </div>
+    </div>
+
+  </footer><!-- End Footer -->
+
+  <!-- Scroll Top Button -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Vendor JS Files -->
+  <script src="theme2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="theme2/vendor/glightbox.min.js"></script>
+  <script src="theme2/vendor/purecounter_vanilla.js"></script>
+  <script src="theme2/vendor/isotope.pkgd.min.js"></script>
+  <script src="theme2/vendor/swiper-bundle.min.js"></script>
+  <script src="theme2/vendor/aos.js"></script>
+  
+
+  <!-- Template Main JS File -->
+  <script src="theme2/js/main.js"></script>
+
+</body>
+
+</html>

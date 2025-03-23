@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from akademi.dexignlab.com/cakephp/demo/akademi-admin/edit-profile by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Nov 2023 16:56:40 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head >
+ <title>Dashboard</title>
+    <link href="../assets/images/star.png" type="" rel="icon">
+    <link href="../assets/images/star.png" type="" rel="shortcut icon">
+
+<!-- Meta -->
+
+ 		 <link rel="stylesheet" href="@{/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons">
+    <!-- Page level css : Dashboard  -->
+    <link rel="stylesheet" th:href="@{/assets/vendor/wow-master/css/libs/animate.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap-select-country/css/bootstrap-select-country.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendor/datepicker/css/bootstrap-datepicker.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendor/datatables/css/jquery.dataTables.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendor/swiper/css/swiper-bundle.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+</head>
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+      <div id="preloader">
+    <div class="loader">
+        <div class="dots">
+            <div class="dot mainDot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <br><br> 
+        <h2>Contact List...</h2>
+            
+        </div>
+    </div>
+</div> 
+   <!--*******************
+        Preloader end
+    ********************-->
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+	    <div id="main-wrapper" class="  active">
+<div th:replace="~{header::header}">
+	</div>
+             <!--**********************************
+            Sidebar end
+        ***********************************-->
+        
+        <!--**********************************
+            Content body start
+        ***********************************-->
+					<div class="content-body " style="">
+			<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="mb-0">Conatct's List</h5>
+				</div>
+				<div class="card-body">
+					<div class="row">
+				
+					 
+					 
+					  <section >
+						 <div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+           <th >ID</th>
+		   <th>Name</th>
+		   <th>E-Mail</th>
+		   <th>Subject</th>
+		   <th>Message</th>
+		   <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="e : ${user.getContects()}">
+           <td th:text="${e.getId()}"></td>
+			<td th:text="${e.getName()}"></td>
+			<td th:text="${e.getEmail()}"></td>
+			<td th:text="${e.getSubject()}"></td>
+			<td th:text="${e.getMessage()}"></td>
+			
+          <td>
+            <a th:href="@{/deleteContact/{id} (id=${e.getId()})}" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+            </td>
+          </tr>
+          
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+					 </section>
+					 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+
+		</div>    
+    			    <!--**********************************
+            Content body end
+        ***********************************-->
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+
+			<div th:replace="~{footer::footer}"></div>
+	       <!--**********************************
+            Footer end
+        ***********************************-->
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+	<script>
+            const BASE_URL = 'https://akademi.dexignlab.com/cakephp/demo';
+        </script>
+        <script th:src="@{/assets/vendor/global/global.min.js}"></script>
+        <script th:src="@{/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js}"></script>
+        <script th:src="@{/assets/vendor/chart.js/Chart.bundle.min.js}"></script>
+        <script th:src="@{/assets/vendor/apexchart/apexchart.js}"></script>
+        <script th:src="@{/assets/vendor/peity/jquery.peity.min.js}"></script>
+        <script th:src="@{/assets/vendor/swiper/js/swiper-bundle.min.js}"></script>
+        <script th:src="@{/assets/vendor/datatables/js/jquery.dataTables.min.js}"></script>
+        <script th:src="@{/assets/js/plugins-init/datatables.init.js}"></script>
+        <script th:src="@{/assets/js/dashboard/dashboard-1.js}"></script>
+        <script th:src="@{/assets/vendor/wow-master/dist/wow.min.js}"></script>
+        <script th:src="@{/assets/vendor/bootstrap-datetimepicker/js/moment.js}"></script>
+        <script th:src="@{/assets/vendor/datepicker/js/bootstrap-datepicker.min.js}"></script>
+        <script th:src="@{/assets/vendor/bootstrap-select-country/js/bootstrap-select-country.min.js}"></script>
+        <!-- Page level Js : Dashboard  -->
+        <script th:src="@{/assets/js/custom.min.js}"></script>
+        <script th:src="@{/assets/js/dlabnav-init.js}"></script>
+        <script th:src="@{/assets/js/demo.js}"></script>
+        <script th:src="@{/assets/js/styleSwitcher.js}"></script>
+	
+
+</body>
+
+
+</html>
